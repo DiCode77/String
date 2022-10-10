@@ -14,7 +14,6 @@ class Str{
     char *str;
     ulong lenght;
     ulong capacit_y;
-    
 public:
     Str(){
         this->str = nullptr;
@@ -49,11 +48,28 @@ public:
     
     Str &operator+= (const Str &oth);
     
-    Str &operator+ (const Str &oth);
+    Str operator+ (const Str &oth);
     
-    char &operator[] (const ulong &in){
-        return this->str[in];
-    }
+    bool operator< (const Str &oth) const;
+    
+    bool operator> (const Str &oth) const;
+    
+    bool operator<= (const Str &oth) const;
+    
+    bool operator>= (const Str &oth) const;
+    
+    bool operator== (const Str &oth) const;
+    
+    bool operator!= (const Str &oth) const;
+    
+    char &operator[] (const ulong &in) const;
+    
+    friend Str operator+ (Str in, const Str &oth);
+    friend bool operator< (const Str in, const Str &oth);
+    friend bool operator> (const Str in, const Str &oth);
+    friend bool operator<= (const Str in, const Str &oth);
+    friend bool operator>= (const Str in, const Str &oth);
+    friend bool operator== (const Str in, const Str &oth);
     
     friend std::ostream& operator << (std::ostream &out, const Str &other){
         return (out << other.str);
@@ -84,4 +100,17 @@ public:
     ~Str(){
         delete [] this->str;
     }
+};
+
+class NewVariable{
+private:
+    char *new_str;
+public:
+    NewVariable(){
+        this->new_str = nullptr;
+    }
+    ~NewVariable(){
+        delete [] this->new_str;
+    }
+    friend class Str;
 };
