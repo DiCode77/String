@@ -7,43 +7,43 @@
 
 #include "Str.hpp"
 
-void Str::new_str(const ulong &size){
+void Str::new_str(const uint &size){
     if (this->str == nullptr){
         this->str = new char[size]{};
     }
 }
 
-void Str::copy_variable(char *str, const char *in_str, const ulong &len){
+void Str::copy_variable(char *str, const char *in_str, const uint &len){
     if (!str || !in_str || !len){
         return;
     }
     else{
-        for (ulong i = 0; i < len; i++){
+        for (uint i = 0; i < len; i++){
             str[i] = in_str[i];
         }
     }
 }
 
-void Str::copy_variable_position(const ulong &pos, char *str, const char *in_str, const ulong &len){
+void Str::copy_variable_position(const uint &pos, char *str, const char *in_str, const uint &len){
     if (!str || !in_str || !len){
         return;
     }
     else{
-        for (ulong i = pos; i < len; i++){
-            str[i] = in_str[i - this->lenght];
+        for (uint i = pos; i < len; i++){
+            str[i] = in_str[i - this->length];
         }
     }
 }
 
-bool Str::maxsize(const ulong &len){
+bool Str::maxsize(const uint &len){
     return this->capacit_y > len;
 }
 
-bool Str::minsize(const ulong &len){
+bool Str::minsize(const uint &len){
     return (len + STR_CAPACITY) < this->capacit_y;
 }
 
-void Str::reall_size(const ulong &len){
+void Str::reall_size(const uint &len){
     if (!maxsize(len)){
         this->capacit_y += (len - this->capacit_y) + STR_CAPACITY;
     }
@@ -53,7 +53,7 @@ void Str::reall_size(const ulong &len){
 
 }
 
-void Str::new_str_size(const char *oth_str, const ulong &len){
+void Str::new_str_size(const char *oth_str, const uint &len){
     if (oth_str != nullptr){
         char *new_str = new char[this->capacit_y +1]{};
         copy_variable(new_str, oth_str, len +1);
@@ -69,92 +69,92 @@ void Str::new_str_size(const char *oth_str, const ulong &len){
 
 Str &Str::operator= (const Str &oth){
     if (oth.str != nullptr){
-        this->lenght = oth.lenght;
-        reall_size(this->lenght);
-        new_str_size(oth.str, this->lenght);
+        this->length = oth.length;
+        reall_size(this->length);
+        new_str_size(oth.str, this->length);
     }
     return *this;
 }
 
 Str &Str::operator+= (const Str &oth){
-    reall_size(this->lenght + oth.lenght);
-    new_str_size(this->str, this->lenght);
-    copy_variable_position(this->lenght, this->str, oth.str, (this->lenght + oth.lenght) +1);
-    this->lenght = this->lenght + oth.lenght;
+    reall_size(this->length + oth.length);
+    new_str_size(this->str, this->length);
+    copy_variable_position(this->length, this->str, oth.str, (this->length + oth.length) +1);
+    this->length = this->length + oth.length;
     return *this;
 }
 
 Str Str::operator+ (const Str &oth){
     NewVariable cont;
-    reall_size(this->lenght + oth.lenght);
+    reall_size(this->length + oth.length);
     cont.new_str = new char[capacit_y +1]{};
-    copy_variable(cont.new_str, this->str, this->lenght);
-    copy_variable_position(this->lenght, cont.new_str, oth.str, (this->lenght + oth.lenght) +1);
+    copy_variable(cont.new_str, this->str, this->length);
+    copy_variable_position(this->length, cont.new_str, oth.str, (this->length + oth.length) +1);
     return cont.new_str;
 }
 
 bool Str::operator< (const Str &oth) const{
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < this->lenght; i++){
+    for (uint i = 0; i < this->length; i++){
         size_str += this->str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str < size_str_oth);
 }
 
 bool Str::operator> (const Str &oth) const{
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < this->lenght; i++){
+    for (uint i = 0; i < this->length; i++){
         size_str += this->str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str > size_str_oth);
 }
 
 bool Str::operator<= (const Str &oth) const{
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < this->lenght; i++){
+    for (uint i = 0; i < this->length; i++){
         size_str += this->str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str <= size_str_oth);
 }
 
 bool Str::operator>= (const Str &oth) const{
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < this->lenght; i++){
+    for (uint i = 0; i < this->length; i++){
         size_str += this->str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str < size_str_oth);
 }
 
 bool Str::operator== (const Str &oth) const{
-    if (this->lenght != oth.lenght){
+    if (this->length != oth.length){
         return false;
     }
     else{
-        for (ulong i = 0; i < this->lenght; i++){
+        for (uint i = 0; i < this->length; i++){
             if (this->str[i] != oth.str[i]){
                 return false;
             }
@@ -164,11 +164,11 @@ bool Str::operator== (const Str &oth) const{
 }
 
 bool Str::operator!= (const Str &oth) const{
-    if (this->lenght != oth.lenght){
+    if (this->length != oth.length){
         return true;
     }
     else{
-        for (ulong i = 0; i < this->lenght; i++){
+        for (uint i = 0; i < this->length; i++){
             if (this->str[i] != oth.str[i]){
                 return true;
             }
@@ -177,85 +177,185 @@ bool Str::operator!= (const Str &oth) const{
     return false;
 }
 
-char &Str::operator[] (const ulong &in) const{
+char &Str::operator[] (const uint &in) const{
     return this->str[in];
 }
 
 
 Str operator+ (Str in, const Str &oth){
-    in.reall_size(in.lenght + oth.lenght);
-    in.new_str_size(in.str, in.lenght);
-    in.copy_variable_position(in.lenght, in.str, oth.str, (in.lenght + oth.lenght) +1);
-    in.lenght = in.lenght + oth.lenght;
+    in.reall_size(in.length + oth.length);
+    in.new_str_size(in.str, in.length);
+    in.copy_variable_position(in.length, in.str, oth.str, (in.length + oth.length) +1);
+    in.length = in.length + oth.length;
     return in;
 }
 
 bool operator< (const Str in, const Str &oth) {
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < in.lenght; i++){
+    for (uint i = 0; i < in.length; i++){
         size_str += in.str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str < size_str_oth);
 }
 
 bool operator> (const Str in, const Str &oth) {
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < in.lenght; i++){
+    for (uint i = 0; i < in.length; i++){
         size_str += in.str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str > size_str_oth);
 }
 
 bool operator<= (const Str in, const Str &oth) {
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < in.lenght; i++){
+    for (uint i = 0; i < in.length; i++){
         size_str += in.str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str <= size_str_oth);
 }
 
 bool operator>= (const Str in, const Str &oth) {
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < in.lenght; i++){
+    for (uint i = 0; i < in.length; i++){
         size_str += in.str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str >= size_str_oth);
 }
 
 bool operator== (const Str in, const Str &oth) {
-    ulong size_str = 0;
-    ulong size_str_oth = 0;
+    uint size_str = 0;
+    uint size_str_oth = 0;
     
-    for (ulong i = 0; i < in.lenght; i++){
+    for (uint i = 0; i < in.length; i++){
         size_str += in.str[i];
     }
     
-    for (ulong i = 0; i < oth.lenght; i++){
+    for (uint i = 0; i < oth.length; i++){
         size_str_oth += oth.str[i];
     }
     return (size_str == size_str_oth);
+}
+
+
+long Str::findr(const char *in){
+    uint size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (uint i = 0; i < this->length; i++){
+        if (this->str[i] == in[0]){
+            if (this->str[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->str[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+
+long Str::findr(const char *in, const uint &where){
+    uint size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (uint i = where; i < this->length; i++){
+        if (this->str[i] == in[0]){
+            if (this->str[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->str[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+
+long Str::rfindr(const char *in){
+    uint size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (long i = this->length; i >= 0; i--){
+        if (this->str[i] == in[0]){
+            if (this->str[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->str[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+
+long Str::rfindr(const char *in, const uint &where){
+    uint size = 0;
+    while (in[size] != '\0'){
+        size++;
+    }
+    for (long i = where; i >= 0; i--){
+        if (this->str[i] == in[0]){
+            if (this->str[i + (size -1)] == in[size -1]){
+                for (long l = 0; l < size; l++){
+                    if (this->str[i + l] == in[l]){
+                        if (l == (size -1)){
+                            return i;
+                        }
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return -1;
 }
