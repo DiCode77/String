@@ -54,7 +54,7 @@ void Str::reall_size(const uint &len){
 }
 
 void Str::new_str_size(const char *oth_str, const uint &len){
-    if (oth_str != nullptr){
+    if (this->str != nullptr){
         char *new_str = new char[this->capacit_y +1]{};
         copy_variable(new_str, oth_str, len +1);
         delete [] this->str;
@@ -209,7 +209,7 @@ char &Str::operator[] (const uint &in) const{
 }
 
 
-Str operator+ (Str in, const Str &oth){
+Str operator+ (Str in, Str &oth){
     in.reall_size(in.length + oth.length);
     in.new_str_size(in.str, in.length);
     in.copy_variable_position(in.length, in.str, oth.str, (in.length + oth.length) +1);
@@ -285,6 +285,34 @@ bool operator== (const Str in, const Str &oth) {
         size_str_oth += oth.str[i];
     }
     return (size_str == size_str_oth);
+}
+
+std::ostream &operator << (std::ostream &out, const Str &other){
+    return (out << other.str);
+}
+
+std::istream &operator >> (std::istream &stream, Str &other){
+    char *new_str = new char[]{};
+    stream.getline(new_str, UINT_MAX);
+    
+    if (other.length != 0){
+        other.length = 0;
+    }
+    
+    while (new_str[other.length] != '\0') {
+        other.length++;
+    }
+    
+    if (other.str != nullptr){
+        delete [] other.str;
+        other.str = nullptr;
+    }
+
+    other.reall_size(other.length);
+    other.new_str(other.capacit_y);
+    other.copy_variable(other.str, new_str, other.length +1);
+    delete [] new_str;
+    return stream;
 }
 
 

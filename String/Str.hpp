@@ -70,16 +70,16 @@ public:
     
     char &operator[] (const uint &in) const;
     
-    friend Str operator+ (Str in, const Str &oth);
+    friend Str operator+ (Str in, Str &oth);
     friend bool operator< (const Str in, const Str &oth);
     friend bool operator> (const Str in, const Str &oth);
     friend bool operator<= (const Str in, const Str &oth);
     friend bool operator>= (const Str in, const Str &oth);
     friend bool operator== (const Str in, const Str &oth);
     
-    friend std::ostream& operator << (std::ostream &out, const Str &other){
-        return (out << other.str);
-    }
+    friend std::ostream &operator << (std::ostream &out, const Str &other);
+    
+    friend std::istream &operator >> (std::istream &stream, Str &other);
     
     uint size(){
         return this->length;
