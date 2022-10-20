@@ -6,7 +6,7 @@
 //
 #include <iostream>
 
-#define STR_VERSION "0.0.2"
+#define STR_VERSION "0.0.3"
 #define STR_CAPACITY 22
 typedef unsigned int uint;
 
@@ -46,9 +46,15 @@ public:
 public:
     Str &operator= (const Str &oth);
     
+    Str &operator= (const char oth);
+    
     Str &operator+= (const Str &oth);
     
+    Str &operator+= (const char oth);
+    
     Str operator+ (const Str &oth);
+    
+    Str operator+ (const char oth);
     
     bool operator< (const Str &oth) const;
     

@@ -76,11 +76,28 @@ Str &Str::operator= (const Str &oth){
     return *this;
 }
 
+Str &Str::operator= (const char oth){
+    char str[2] = {oth, '\0'};
+    this->length = 1;
+    reall_size(this->length);
+    new_str_size(str, this->length);
+    return *this;
+}
+
 Str &Str::operator+= (const Str &oth){
     reall_size(this->length + oth.length);
     new_str_size(this->str, this->length);
     copy_variable_position(this->length, this->str, oth.str, (this->length + oth.length) +1);
     this->length = this->length + oth.length;
+    return *this;
+}
+
+Str &Str::operator+= (const char oth){
+    char str[2] = {oth, '\0'};
+    reall_size(this->length + 1);
+    new_str_size(this->str, this->length);
+    copy_variable_position(this->length, this->str, str, (this->length + 1) +1);
+    this->length = this->length + 1;
     return *this;
 }
 
@@ -90,6 +107,16 @@ Str Str::operator+ (const Str &oth){
     cont.new_str = new char[capacit_y +1]{};
     copy_variable(cont.new_str, this->str, this->length);
     copy_variable_position(this->length, cont.new_str, oth.str, (this->length + oth.length) +1);
+    return cont.new_str;
+}
+
+Str Str::operator+ (const char oth){
+    char str[2] = {oth, '\0'};
+    NewVariable cont;
+    reall_size(this->length + 1);
+    cont.new_str = new char[capacit_y +1]{};
+    copy_variable(cont.new_str, this->str, this->length);
+    copy_variable_position(this->length, cont.new_str, str, (this->length + 1) +1);
     return cont.new_str;
 }
 
